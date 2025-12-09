@@ -1,0 +1,111 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Detalhes do Usuário - {{ user.nome }}{% endblock %}
+
+{% block body %}
+<div class="container mt-4">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card">
+                <div class="card-header">
+                    <h3>Detalhes do Usuário</h3>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <h5>Informações Pessoais</h5>
+                            <table class="table table-borderless">
+                                <tr>
+                                    <th>ID:</th>
+                                    <td>{{ user.id }}</td>
+                                </tr>
+                                <tr>
+                                    <th>Nome:</th>
+                                    <td><strong>{{ user.nome }}</strong></td>
+                                </tr>
+                                <tr>
+                                    <th>E-mail:</th>
+                                    <td>{{ user.email }}</td>
+                                </tr>
+                                <tr>
+                                    <th>Usuário:</th>
+                                    <td>{{ user.username }}</td>
+                                </tr>
+                                <tr>
+                                    <th>Status:</th>
+                                    <td>
+                                        {% if user.ativo %}
+                                            <span class="badge bg-success">Ativo</span>
+                                        {% else %}
+                                            <span class="badge bg-danger">Inativo</span>
+                                        {% endif %}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>Data Criação:</th>
+                                    <td>{{ user.dataCriacao|date('d/m/Y H:i:s') }}</td>
+                                </tr>
+                            </table>
+                        </div>
+                        <div class="col-md-6">
+                            <h5>Perfis e Permissões</h5>
+                            <div class="mb-3">
+                                <strong>Perfis:</strong>
+                                <div class="mt-2">
+                                    {% for role in user.roles %}
+                                        <span class="badge bg-primary me-1">{{ role }}</span>
+                                    {% endfor %}
+                                </div>
+                            </div>
+                            <div class="mb-3">
+                                <strong>Permissões por Módulo:</strong>
+                                <div class="mt-2">
+                                    {% if user.permissoes|length > 0 %}
+                                        {% for permissao in user.permissoes %}
+                                            <div class="card mb-2">
+                                                <div class="card-body p-2">
+                                                    <strong>{{ permissao.modulo.nome }}</strong>
+                                                    <div class="mt-1">
+                                                        {% if permissao.podeVisualizar %}
+                                                            <span class="badge bg-success me-1">Ver</span>
+                                                        {% endif %}
+                                                        {% if permissao.podeIncluir %}
+                                                            <span class="badge bg-info me-1">Incluir</span>
+                                                        {% endif %}
+                                                        {% if permissao.podeEditar %}
+                                                            <span class="badge bg-warning me-1">Editar</span>
+                                                        {% endif %}
+                                                        {% if permissao.podeExcluir %}
+                                                            <span class="badge bg-danger me-1">Excluir</span>
+                                                        {% endif %}
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        {% endfor %}
+                                    {% else %}
+                                        <p class="text-muted">Nenhuma permissão específica configurada.</p>
+                                    {% endif %}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="d-flex justify-content-between mt-4">
+                        <a href="{{ path('admin_user_index') }}" class="btn btn-secondary">
+                            <i class="fas fa-arrow-left"></i> Voltar
+                        </a>
+                        <div>
+                            <a href="{{ path('admin_permissao_usuario', {'id': user.id}) }}" class="btn btn-info">
+                                <i class="fas fa-key"></i> Gerenciar Permissões
+                            </a>
+                            <a href="{{ path('admin_user_edit', {'id': user.id}) }}" class="btn btn-warning">
+                                <i class="fas fa-edit"></i> Editar
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %} 

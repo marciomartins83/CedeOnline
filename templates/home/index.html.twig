@@ -1,0 +1,53 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}CedeOnline - Sistema de Gestão{% endblock %}
+
+{% block body %}
+<div class="container mt-5">
+    <div class="row">
+        <div class="col-12 text-center">
+            <h1 class="display-4 mb-4">Bem-vindo ao CedeOnline</h1>
+            <p class="lead mb-5">Sistema de Gestão Empresarial</p>
+        </div>
+    </div>
+    
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-body text-center">
+                    <h5 class="card-title">Acesso ao Sistema</h5>
+                    <p class="card-text">Faça login para acessar o painel de controle</p>
+                    <a href="{{ path('app_login') }}" class="btn btn-primary btn-lg">Entrar no Sistema</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="row mt-5">
+        <div class="col-md-4">
+            <div class="card h-100">
+                <div class="card-body text-center">
+                    <h5 class="card-title">Gestão de Usuários</h5>
+                    <p class="card-text">Gerencie usuários, permissões e acessos ao sistema</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card h-100">
+                <div class="card-body text-center">
+                    <h5 class="card-title">Relatórios</h5>
+                    <p class="card-text">Visualize relatórios e estatísticas em tempo real</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card h-100">
+                <div class="card-body text-center">
+                    <h5 class="card-title">Configurações</h5>
+                    <p class="card-text">Configure parâmetros e preferências do sistema</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %} 

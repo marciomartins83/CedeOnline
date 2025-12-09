@@ -4,17 +4,27 @@ security:
         Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface: 'auto'
     # https://symfony.com/doc/current/security.html#loading-the-user-the-user-provider
     providers:
-        users_in_memory: { memory: null }
+        users:
+            id: app.user_provider
     firewalls:
         dev:
             pattern: ^/(_(profiler|wdt)|css|images|js)/
             security: false
         main:
             lazy: true
-            provider: users_in_memory
-
-            # activate different ways to authenticate
-            # https://symfony.com/doc/current/security.html#the-firewall
+            provider: users
+            form_login:
+                login_path: app_login
+                check_path: app_login
+                enable_csrf: true
+                default_target_path: app_dashboard
+                username_parameter: '_username'
+                password_parameter: '_password'
+                csrf_parameter: '_csrf_token'
+                csrf_token_id: 'authenticate'
+            logout:
+                path: app_logout
+                target: app_login
 
             # https://symfony.com/doc/current/security/impersonating_user.html
             # switch_user: true
@@ -22,8 +32,8 @@ security:
     # Easy way to control access for large sections of your site
     # Note: Only the *first* access control that matches will be used
     access_control:
-        # - { path: ^/admin, roles: ROLE_ADMIN }
-        # - { path: ^/profile, roles: ROLE_USER }
+        - { path: ^/dashboard, roles: ROLE_USER }
+        - { path: ^/admin, roles: ROLE_ADMIN }
 
 when@test:
     security:

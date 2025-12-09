@@ -1,0 +1,138 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Detalhes da Permissão{% endblock %}
+
+{% block body %}
+<div class="container mt-4">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card">
+                <div class="card-header">
+                    <h3>Detalhes da Permissão</h3>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <h5>Informações do Usuário</h5>
+                            <table class="table table-borderless">
+                                <tr>
+                                    <th>Nome:</th>
+                                    <td><strong>{{ permissao.usuario.nome }}</strong></td>
+                                </tr>
+                                <tr>
+                                    <th>E-mail:</th>
+                                    <td>{{ permissao.usuario.email }}</td>
+                                </tr>
+                                <tr>
+                                    <th>Usuário:</th>
+                                    <td>{{ permissao.usuario.username }}</td>
+                                </tr>
+                            </table>
+                        </div>
+                        <div class="col-md-6">
+                            <h5>Informações do Módulo</h5>
+                            <table class="table table-borderless">
+                                <tr>
+                                    <th>Módulo:</th>
+                                    <td><strong>{{ permissao.modulo.nome }}</strong></td>
+                                </tr>
+                                <tr>
+                                    <th>Código:</th>
+                                    <td><code>{{ permissao.modulo.codigo }}</code></td>
+                                </tr>
+                                <tr>
+                                    <th>Descrição:</th>
+                                    <td>{{ permissao.modulo.descricao }}</td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+
+                    <div class="row mt-4">
+                        <div class="col-md-12">
+                            <h5>Permissões</h5>
+                            <div class="row">
+                                <div class="col-md-3">
+                                    <div class="card">
+                                        <div class="card-body text-center">
+                                            <h6>Visualizar</h6>
+                                            {% if permissao.podeVisualizar %}
+                                                <span class="badge bg-success">Permitido</span>
+                                            {% else %}
+                                                <span class="badge bg-secondary">Negado</span>
+                                            {% endif %}
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="card">
+                                        <div class="card-body text-center">
+                                            <h6>Incluir</h6>
+                                            {% if permissao.podeIncluir %}
+                                                <span class="badge bg-success">Permitido</span>
+                                            {% else %}
+                                                <span class="badge bg-secondary">Negado</span>
+                                            {% endif %}
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="card">
+                                        <div class="card-body text-center">
+                                            <h6>Editar</h6>
+                                            {% if permissao.podeEditar %}
+                                                <span class="badge bg-success">Permitido</span>
+                                            {% else %}
+                                                <span class="badge bg-secondary">Negado</span>
+                                            {% endif %}
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="card">
+                                        <div class="card-body text-center">
+                                            <h6>Excluir</h6>
+                                            {% if permissao.podeExcluir %}
+                                                <span class="badge bg-success">Permitido</span>
+                                            {% else %}
+                                                <span class="badge bg-secondary">Negado</span>
+                                            {% endif %}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row mt-4">
+                        <div class="col-md-12">
+                            <h5>Informações do Sistema</h5>
+                            <table class="table table-borderless">
+                                <tr>
+                                    <th>Data Criação:</th>
+                                    <td>{{ permissao.dataCriacao|date('d/m/Y H:i:s') }}</td>
+                                </tr>
+                                <tr>
+                                    <th>Última Atualização:</th>
+                                    <td>{{ permissao.dataAtualizacao|date('d/m/Y H:i:s') }}</td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+
+                    <div class="d-flex justify-content-between mt-4">
+                        <a href="{{ path('admin_permissao_index') }}" class="btn btn-secondary">
+                            <i class="fas fa-arrow-left"></i> Voltar
+                        </a>
+                        <div>
+                            <a href="{{ path('admin_permissao_edit', {'id': permissao.id}) }}" class="btn btn-warning">
+                                <i class="fas fa-edit"></i> Editar
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %} 

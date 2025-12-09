@@ -1,0 +1,92 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Permissões do Usuário - {{ usuario.nome }}{% endblock %}
+
+{% block body %}
+<div class="container mt-4">
+    <div class="row">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-header">
+                    <h3>Permissões do Usuário: {{ usuario.nome }}</h3>
+                    <p class="text-muted mb-0">E-mail: {{ usuario.email }} | Usuário: {{ usuario.username }}</p>
+                </div>
+                <div class="card-body">
+                    <form method="post">
+                        <div class="table-responsive">
+                            <table class="table table-striped">
+                                <thead>
+                                    <tr>
+                                        <th>Módulo</th>
+                                        <th>Descrição</th>
+                                        <th class="text-center">Visualizar</th>
+                                        <th class="text-center">Incluir</th>
+                                        <th class="text-center">Editar</th>
+                                        <th class="text-center">Excluir</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for modulo in modulos %}
+                                        {% set permissao = null %}
+                                        {% for p in permissoes %}
+                                            {% if p.modulo.id == modulo.id %}
+                                                {% set permissao = p %}
+                                            {% endif %}
+                                        {% endfor %}
+                                        
+                                        <tr>
+                                            <td><strong>{{ modulo.nome }}</strong></td>
+                                            <td>{{ modulo.descricao }}</td>
+                                            <td class="text-center">
+                                                <div class="form-check d-flex justify-content-center">
+                                                    <input type="checkbox" class="form-check-input" 
+                                                           name="visualizar_{{ modulo.id }}" 
+                                                           {% if permissao and permissao.podeVisualizar %}checked{% endif %}>
+                                                </div>
+                                            </td>
+                                            <td class="text-center">
+                                                <div class="form-check d-flex justify-content-center">
+                                                    <input type="checkbox" class="form-check-input" 
+                                                           name="incluir_{{ modulo.id }}" 
+                                                           {% if permissao and permissao.podeIncluir %}checked{% endif %}>
+                                                </div>
+                                            </td>
+                                            <td class="text-center">
+                                                <div class="form-check d-flex justify-content-center">
+                                                    <input type="checkbox" class="form-check-input" 
+                                                           name="editar_{{ modulo.id }}" 
+                                                           {% if permissao and permissao.podeEditar %}checked{% endif %}>
+                                                </div>
+                                            </td>
+                                            <td class="text-center">
+                                                <div class="form-check d-flex justify-content-center">
+                                                    <input type="checkbox" class="form-check-input" 
+                                                           name="excluir_{{ modulo.id }}" 
+                                                           {% if permissao and permissao.podeExcluir %}checked{% endif %}>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    {% else %}
+                                        <tr>
+                                            <td colspan="6" class="text-center">Nenhum módulo encontrado</td>
+                                        </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                        
+                        <div class="d-flex justify-content-between mt-4">
+                            <a href="{{ path('admin_user_index') }}" class="btn btn-secondary">
+                                <i class="fas fa-arrow-left"></i> Voltar
+                            </a>
+                            <button type="submit" class="btn btn-primary">
+                                <i class="fas fa-save"></i> Salvar Permissões
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %} 

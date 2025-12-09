@@ -1,0 +1,66 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Painel de Controle{% endblock %}
+
+{% block body %}
+<div class="container mt-5">
+    <div class="row">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-header d-flex justify-content-between align-items-center">
+                    <h3>Painel de Controle</h3>
+                    <a href="{{ path('app_logout') }}" class="btn btn-outline-danger">Sair</a>
+                </div>
+                <div class="card-body">
+                    <div class="alert alert-success">
+                        <h4 class="alert-heading">Bem-vindo(a)!</h4>
+                        <p>Olá <strong>{{ user.nome }}</strong>, você está logado com sucesso!</p>
+                        <hr>
+                        <p class="mb-0">
+                            <strong>E-mail:</strong> {{ user.email }}<br>
+                            <strong>Nome de usuário:</strong> {{ user.username }}<br>
+                            <strong>Data de criação:</strong> {{ user.dataCriacao|date('d/m/Y H:i:s') }}
+                        </p>
+                    </div>
+                    
+                    <div class="row mt-4">
+                        <div class="col-md-6">
+                            <div class="card">
+                                <div class="card-body">
+                                    <h5 class="card-title">Informações da Conta</h5>
+                                    <ul class="list-unstyled">
+                                        <li><strong>Status:</strong> 
+                                            {% if user.ativo %}
+                                                <span class="badge bg-success">Ativo</span>
+                                            {% else %}
+                                                <span class="badge bg-danger">Inativo</span>
+                                            {% endif %}
+                                        </li>
+                                        <li><strong>Perfis:</strong> 
+                                            {% for role in user.roles %}
+                                                <span class="badge bg-primary">{{ role }}</span>
+                                            {% endfor %}
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="card">
+                                <div class="card-body">
+                                    <h5 class="card-title">Ações Rápidas</h5>
+                                    <div class="d-grid gap-2">
+                                        <button class="btn btn-primary" disabled>Editar Perfil</button>
+                                        <button class="btn btn-secondary" disabled>Alterar Senha</button>
+                                        <button class="btn btn-info" disabled>Histórico de Acesso</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %} 
