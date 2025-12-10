@@ -8,6 +8,9 @@ doctrine:
 
         profiling_collect_backtrace: '%kernel.debug%'
         use_savepoints: true
+        mapping_types:
+            bit: boolean
+        schema_filter: ~^(audit_log|caixa_modulo|local_caixa|messenger_messages|modo_movimento|modulo|movimento|origem_movimento|pagador|permissao|responsavel|status|tipo_movimento|user|doctrine_migration_versions)$~
     orm:
         auto_generate_proxy_classes: true
         enable_lazy_ghost_objects: true
